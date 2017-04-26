@@ -1,0 +1,150 @@
+body {
+    font-family: Consolas, Menlo, Monaco, "Lucida Console", "DejaVu Sans Mono", "Courier New", monospace;
+    font-size: 14px;
+}
+::-webkit-input-placeholder {color:#ccc;}
+::-moz-placeholder          {color:#ccc;}/* Firefox 19+ */
+:-moz-placeholder           {color:#ccc;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#ccc;}
+.center {
+    text-align: center;
+}
+.hide {
+    display: none;
+}
+a {
+    color: #000000;
+    text-decoration: none;
+    border-bottom: 1px dotted #000000;
+}
+a:hover {
+    color: #555555;
+    border-bottom-color: #555555;
+}
+.background_inp {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+.background_inp input {
+    width: 55px;
+    padding: 0 2px;
+}
+.controls {
+    padding:20px;
+    margin: 0 auto;
+    width: 600px;
+}
+.controls .title {
+    text-align: center;
+    font-size: 24px;
+    text-shadow: white 0 0 15px, white 0 0 15px;
+}
+.controls .inputs {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    position: relative;
+    left: -10px;
+    border: 1px solid #bbb;
+    text-align: left;
+    text-shadow: white 0 0 15px, white 0 0 15px, white 0 0 15px;
+}
+.controls .inputs .input_group {
+    padding: 5px 0;
+}
+.controls .inputs .input_group .subgroup {
+    padding: 2px 0 0 21px;
+}
+.controls .inputs .input_group table {
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+}
+.controls .inputs .input_group table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+.controls .inputs input[type="text"] {
+    border: 1px solid #bbb;
+    padding: 1px 2px;
+    width: 30px;
+    text-align: center;
+}
+.controls .inputs input[type="checkbox"] {
+    top: 2px;
+    position: relative;
+}
+.container {
+    padding:20px;
+    margin: 0 auto;
+    width: 400px;
+}
+.result_wrap {
+    padding: 20px;
+    margin: 0 auto;
+    width: 600px;
+}
+.msg {
+    word-wrap: break-word;
+    word-break: normal;
+    display: flex;
+    position: relative;
+}
+.msg span {
+    display: inline-block;
+    padding: 2px 0;
+    flex: 0 0 auto;
+}
+.time {
+    color: #ccc;
+    text-align: right;
+    width: 46px;
+}
+span.from {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    border-right: 1px solid #f6f6f6;
+    color: #b1c3ce;
+    padding-right: 10px;
+    text-align: right;
+    width: 134px;
+    padding-left: 10px;
+}
+span.text {
+    padding-left: 10px;
+    padding-right: 6px;
+    flex: 1 1 auto;
+    text-shadow: white 0 0 15px, white 0 0 15px;
+    overflow: hidden;
+}
+.result_wrap textarea {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    left: -10px;
+    padding: 10px;
+    border: 1px solid #bbb;
+}
+#ignore_list {
+    width: 100%;
+    height: 100px;
+    margin-top: 5px;
+    padding: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.hue_input {
+    width: 100% !important;
+    text-align: left !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+.footer {
+    text-align: center;
+    padding: 10px;
+}

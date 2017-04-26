@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Color Generator</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/generator.css">
+    </head>
+    <body>
+        <div class="controls">
+            <div class="title">Color Generator v<span id="version">1.0</span></div>
+            <div class="inputs">
+                <form>
+                    <div class="input_group">
+                        <label for="hues">Hues (<a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank">HSV</a> format): </label>
+                        <input
+                            type="text" class="hue_input" placeholder="10, 20, ..." id="hues"
+                            value="0, 30, 40, 45, 55, 60, 75, 120, 165, 180, 190, 200, 215, 245, 270, 280, 290, 300, 315">
+                    </div>
+                    <div class="input_group">
+                        <input type="checkbox" id="reduce_bright" checked="checked">
+                        <label for="reduce_bright">Reduce brightness for bright colors by </label>
+                        <input type="text" placeholder="int" id="reduce_bright_s1" value="20">
+                        <div class="subgroup">
+                            <label for="bright_hues_rv">Bright hues to reduce value: </label>
+                            <input type="text" class="hue_input" placeholder="10, 20, ..." id="bright_hues_rv"
+                                   value="55, 60, 75, 120, 165, 180, 190">
+                        </div>
+                    </div>
+                    <div class="input_group">
+                        <input type="checkbox" id="reduce_saturation" checked="checked">
+                        <label for="reduce_saturation">
+                            When saturation <
+                            <input type="text" placeholder="int" id="reduce_saturation_s2" value="90">
+                            reduce it by
+                            <input type="text" placeholder="int" id="reduce_saturation_s1" value="10">
+                            for bright colors
+                        </label>
+                        <div class="subgroup">
+                            <label for="bright_hues_rs">Bright hues to reduce saturation: </label>
+                            <input type="text" class="hue_input" placeholder="10, 20, ..." id="bright_hues_rs"
+                                   value="30, 40, 45, 55, 60, 75, 190">
+                        </div>
+                    </div>
+                    <div class="input_group">
+                        <input type="checkbox" id="s_ign_zone" checked="checked">
+                        <label for="s_ign_zone">
+                            Ignore bright colors when saturation <
+                            <input type="text" placeholder="int" id="s_ign_zone_s1" value="80">
+                        </label>
+                        <div class="subgroup">
+                            <label for="bright_hues_i">Bright hues to ignore: </label>
+                            <input type="text" class="hue_input" placeholder="10, 20, ..." id="bright_hues_i"
+                                   value="120, 165, 180, 190">
+                        </div>
+                    </div>
+                    <div class="input_group">
+                        <input type="checkbox" id="skip_dark" checked="checked">
+                        <label for="skip_dark">Skip dark colors when value <
+                            <input type="text" placeholder="int" id="skip_dark_v1" value="85">
+                        </label>
+                        <div class="subgroup">
+                            <label for="dark_hues_s">Dark hues to skip: </label>
+                            <input type="text" class="hue_input" placeholder="10, 20, ..." id="dark_hues_s"
+                                   value="60, 165, 190, 280">
+                        </div>
+                    </div>
+                    <div class="input_group">
+                        <input type="checkbox" id="skip_bright" checked="checked">
+                        <label for="skip_bright">Skip bright colors when saturation <
+                            <input type="text" placeholder="int" id="skip_bright_v1" value="85">
+                        </label>
+                        <div class="subgroup">
+                            <label for="bright_hues_s">Bright hues to skip: </label>
+                            <input type="text" class="hue_input" placeholder="10, 20, ..." id="bright_hues_s"
+                                   value="30, 40, 45, 55, 60, 75">
+                        </div>
+                    </div>
+                    <div class="input_group">
+                        <input type="checkbox" id="add_grey">
+                        <label for="add_grey">
+                            Include grey colors staring from
+                            <input type="text" placeholder="int" id="add_grey_v1" value="40">
+                            with step
+                            <input type="text" placeholder="int" id="add_grey_v2" value="25">
+                        </label>
+                    </div>
+                    <div class="input_group">
+                        Shades input [0-100] (<a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank">HSV</a> format)
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="text" placeholder="S1" id="S1" value="100">
+                                    <input type="text" placeholder="V1" id="V1" value="70">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S2" id="S2" value="100">
+                                    <input type="text" placeholder="V2" id="V2" value="85">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S3" id="S3" value="100">
+                                    <input type="text" placeholder="V3" id="V3" value="100">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S4" id="S4" value="70">
+                                    <input type="text" placeholder="V4" id="V4" value="100">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S5" id="S5" value="55">
+                                    <input type="text" placeholder="V5" id="V5" value="100">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S6" id="S6" value="">
+                                    <input type="text" placeholder="V6" id="V6" value="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" placeholder="S7" id="S7">
+                                    <input type="text" placeholder="V7" id="V7">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S8" id="S8">
+                                    <input type="text" placeholder="V8" id="V8">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S9" id="S9">
+                                    <input type="text" placeholder="V9" id="V9">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S10" id="S10">
+                                    <input type="text" placeholder="V10" id="V10">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S11" id="S11">
+                                    <input type="text" placeholder="V11" id="V11">
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="S12" id="S12">
+                                    <input type="text" placeholder="V12" id="V12">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="input_group">
+                        <label for="ignore_list">Ignore list (add bad colors here)</label><br>
+                        <textarea id="ignore_list">200, 55, 100&#13;&#10;360, 0, 90</textarea>
+                    </div>
+                    <div class="input_group center">
+                        <button onclick="just_do_it(event)">Generate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="container hide" id="preview"></div>
+        <div class="background_inp">
+            <input type="text" placeholder="#FFFFFF" onkeyup="document.body.style.backgroundColor = this.value">
+        </div>
+        <div class="result_wrap hide" id="result_wrap">
+            <textarea title="Paste it to your theme" id="result"></textarea>
+        </div>
+
+        <script src="js/generator.js"></script>
+        <div class="footer">© Bews, 2017. Available on <a href="https://github.com/bews/colors" target="_blank">GitHub</a>.</div>
+    </body>
+</html>
