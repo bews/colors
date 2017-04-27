@@ -53,6 +53,8 @@ function just_do_it(e)
 
     var ignore_list = document.getElementById("ignore_list").value.split(/\n/);
 
+    var use_short = document.getElementById("use_short").checked;
+
     var shades_input = [];
     for(var i = 1; i <= 12; i++)
     {
@@ -66,7 +68,8 @@ function just_do_it(e)
     // /inputs
 
     var colors = generate_colors(
-        hues, shades_input, reduce_bright, reduce_saturation, s_ign_zone, skip_dark, skip_bright, add_grey, ignore_list
+        hues, shades_input, reduce_bright, reduce_saturation, s_ign_zone, skip_dark, skip_bright, add_grey,
+        ignore_list, use_short
     );
     var n = 0;
     colors.forEach(function(hue)
@@ -98,10 +101,12 @@ function just_do_it(e)
  * @param skip_bright array
  * @param add_grey array
  * @param ignore_list array
+ * @param use_short bool
  * @returns {Array}
  */
 function generate_colors(
-    hues_input, shades_input, reduce_bright, reduce_saturation, s_ign_zone, skip_dark, skip_bright, add_grey, ignore_list
+    hues_input, shades_input, reduce_bright, reduce_saturation, s_ign_zone, skip_dark, skip_bright, add_grey,
+    ignore_list, use_short
 )
 {
     var final = [];
@@ -127,17 +132,14 @@ function generate_colors(
 
             if(skip_bright[0] && s < skip_bright[1] && hues_bright_skip.indexOf(i) !== -1) return;
 
-            //if(s_ign_zone[0] && i > 0 && i < 190 && s < s_ign_zone[1]) return;
             if(s_ign_zone[0] && hues_bright_ignore.indexOf(i) !== -1 && s < s_ign_zone[1]) return;
 
-            //if(reduce_bright[0] && i >= 45 && i <= 200) v -= reduce_bright[1];
             if(reduce_bright[0] && hues_bright_reduce_value.indexOf(i) !== -1) v -= reduce_bright[1];
 
-            //if(reduce_saturation[0] && i <= 190 && s < reduce_saturation[2]) s -= reduce_saturation[1];
             if(reduce_saturation[0] && hues_bright_reduce_saturation.indexOf(i) !== -1 && s < reduce_saturation[2])
                 s -= reduce_saturation[1];
 
-            if(!in_ignore(ignore_list, i, s, v)) final[i].push([hsv2hex(i, s, v), [i, s, v]]);
+            if(!in_ignore(ignore_list, i, s, v)) final[i].push([hsv2hex(i, s, v, use_short), [i, s, v]]);
         });
     });
 
@@ -146,7 +148,7 @@ function generate_colors(
         final[360] = [];
         for(var v=add_grey[1];v<=100;v+=add_grey[2])
         {
-            if(!in_ignore(ignore_list, 360, 0, v)) final[360].push([hsv2hex(360, 0, v), [360, 0, v]]);
+            if(!in_ignore(ignore_list, 360, 0, v)) final[360].push([hsv2hex(360, 0, v, use_short), [360, 0, v]]);
         }
     }
 
@@ -177,15 +179,19 @@ function in_ignore(ignore_list, h, s, v)
 }
 //----------------------------------------------------------------------------------------------------------------------
 /**
-* HSV to HEX converter.
-*
-* H runs from 0 to 360 degrees
-* S and V run from 0 to 100
-*
-* Ported from the excellent java algorithm by Eugene Vishnevsky at:
-* http://www.cs.rit.edu/~ncs/color/t_convert.html
+ * HSV to HEX converter.
+ *
+ * H runs from 0 to 360 degrees
+ * S and V run from 0 to 100
+ * Ported from the excellent java algorithm by Eugene Vishnevsky at:
+ * http://www.cs.rit.edu/~ncs/color/t_convert.html
+ * @param h int
+ * @param s int
+ * @param v int
+ * @param short bool
+ * @returns {string}
 */
-function hsv2hex(h, s, v)
+function hsv2hex(h, s, v, short)
 {
     var r, g, b;
     var i;
@@ -196,10 +202,6 @@ function hsv2hex(h, s, v)
     s = Math.max(0, Math.min(100, s));
     v = Math.max(0, Math.min(100, v));
 
-    // We accept saturation and value arguments from 0 to 100 because that's
-    // how Photoshop represents those values. Internally, however, the
-    // saturation and value are calculated from a range of 0 to 1. We make
-    // That conversion here.
     s /= 100;
     v /= 100;
 
@@ -210,7 +212,7 @@ function hsv2hex(h, s, v)
             Math.round(r * 255),
             Math.round(g * 255),
             Math.round(b * 255)
-        ]);
+        ], short);
     }
 
     h /= 60; // sector 0 to 5
@@ -261,22 +263,19 @@ function hsv2hex(h, s, v)
         Math.round(r * 255),
         Math.round(g * 255),
         Math.round(b * 255)
-    ]);
+    ], short);
 }
 //----------------------------------------------------------------------------------------------------------------------
 /**
  * RGB to HEX converter.
  * @param rgb array
+ * @param short bool
  * @returns {string} HEX
  */
-function rgb2hex(rgb)
+function rgb2hex(rgb, short)
 {
-   var hex = "#";
-   hex += str_pad2(rgb[0].toString(16), "00");
-   hex += str_pad2(rgb[1].toString(16), "00");
-   hex += str_pad2(rgb[2].toString(16), "00");
-
-   return hex;
+    var hex = "#" + ((1 << 24) + (rgb[0] << 16) + (rgb[1] << 8) + rgb[2]).toString(16).slice(1);
+    return short ? hex.replace(/#([0-9A-f])\1([0-9A-f])\2([0-9A-f])\3/, '#$1$2$3') : hex;
 }
 //----------------------------------------------------------------------------------------------------------------------
 /**
