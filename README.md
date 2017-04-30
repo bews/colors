@@ -5,4 +5,5 @@ A simple color generator designed for [The Lounge](https://github.com/thelounge/
 [colors.bews.me](https://colors.bews.me/)
 
 # Development
-It still can be improved, so any contribution is welcome :)
+It still can be improved, so any contribution is welcome :)  
+See `dev` branch for the latest code.
