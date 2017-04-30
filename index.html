@@ -13,7 +13,7 @@
     <body>
         <div class="controls">
             <div class="title">Color Generator v<span id="version">1.1</span></div>
-            <div class="inputs"> 
+            <div class="inputs">
                 <form>
                     <div class="input_group">
                         <label for="hues">Hues (<a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank">HSV</a> format): </label>
@@ -96,6 +96,12 @@
                         </label>
                     </div>
                     <div class="input_group">
+                        <input type="checkbox" id="shuffle" checked="checked">
+                        <label for="shuffle">
+                            Shuffle results
+                        </label>
+                    </div>
+                    <div class="input_group">
                         Shades input [0-100] (<a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank">HSV</a> format)
                         <table>
                             <tr>
@@ -154,7 +160,7 @@
                     </div>
                     <div class="input_group">
                         <label for="ignore_list">Ignore list (add bad colors here)</label><br>
-                        <textarea id="ignore_list">200, 55, 100&#13;&#10;360, 0, 90</textarea>
+                        <textarea id="ignore_list">200, 55, 100&#13;&#10;360, 0, 90&#13;&#10;0, 70, 100&#13;&#10;270, 100, 85&#13;&#10;290, 100, 85&#13;&#10;290, 70, 100&#13;&#10;300, 70, 100&#13;&#10;315, 70, 100</textarea>
                     </div>
                     <div class="input_group center">
                         <button onclick="just_do_it(event)">Generate</button>

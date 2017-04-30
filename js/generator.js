@@ -6,6 +6,8 @@ var msg_tpl =
     '<span class="text">hsv(%3%)</span>' +
     '</div>';
 //----------------------------------------------------------------------------------------------------------------------
+var result_form = "#chat.colored-nicks .user.color-%1% { color: %2%; }\n";
+//----------------------------------------------------------------------------------------------------------------------
 /**
  * Main function here, entry point.
  * @param e event
@@ -55,6 +57,9 @@ function just_do_it(e)
 
     var use_short = document.getElementById("use_short").checked;
 
+    var shuffle = document.getElementById("shuffle").checked;
+    var shuffled_a = [];
+
     var shades_input = [];
     for(var i = 1; i <= 12; i++)
     {
@@ -80,11 +85,29 @@ function just_do_it(e)
             document.getElementById("preview").innerHTML += (
                 msg_tpl.replace("%1%", str_pad2(n, "00:00")).replace("%2%", color[0]).replace("%3%", color[1].join(', '))
             );
-            document.getElementById("result").value += (
-                "#chat.colored-nicks .user.color-"+n+" { color: "+color[0]+"; }\n"
-            );
+            if(!shuffle)
+            {
+                document.getElementById("result").value += (
+                    result_form.replace("%1%", n.toString()).replace("%2%", color[0])
+                );
+            }
+            else
+            {
+                shuffled_a.push(color[0]);
+            }
         });
     });
+
+    if(shuffle)
+    {
+        shuffled_a = shuffle_fy(shuffled_a);
+        shuffled_a.forEach(function(color, n)
+        {
+            document.getElementById("result").value += (
+                result_form.replace("%1%", (n + 1).toString()).replace("%2%", color)
+            );
+        });
+    }
 
     document.getElementById("preview").classList.remove("hide");
     document.getElementById("result_wrap").classList.remove("hide");
@@ -287,5 +310,16 @@ function rgb2hex(rgb, short)
 function str_pad2(int, pad)
 {
     return pad.substring(0, pad.length - int.toString().length) + int.toString();
+}
+//----------------------------------------------------------------------------------------------------------------------
+/**
+ * Shuffle array.
+ * @param a array
+ * @returns array
+ */
+function shuffle_fy(a)
+{
+    c=a.length;while(c)b=Math.random()*(--c+1)|0,d=a[c],a[c]=a[b],a[b]=d;
+    return a;
 }
 //----------------------------------------------------------------------------------------------------------------------
